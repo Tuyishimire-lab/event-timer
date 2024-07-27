@@ -4,21 +4,23 @@ import { Form, Button, Modal } from 'react-bootstrap';
 const EventForm = ({ addEvent, editEvent, eventToEdit }) => {
   const [show, setShow] = useState(false);
   const [title, setTitle] = useState('');
+  const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [description, setDescription] = useState('');
   const [color, setColor] = useState('#000000');
   const [isRecurring, setIsRecurring] = useState(false);
   const [recurrencePattern, setRecurrencePattern] = useState('daily');
 
-  useEffect(() =>{
-    if(eventToEdit){
-        setTitle(eventToEdit.title);
-        setEndDate(eventToEdit.endDate);
-        setDescription(eventToEdit.description);
-        setColor(eventToEdit.color);
-        setIsRecurring(eventToEdit.isRecurring || false);
-        setRecurrencePattern(eventToEdit.recurrencePattern || 'daily');
-        handleShow();
+  useEffect(() => {
+    if (eventToEdit) {
+      setTitle(eventToEdit.title);
+      setStartDate(eventToEdit.startDate);
+      setEndDate(eventToEdit.endDate);
+      setDescription(eventToEdit.description);
+      setColor(eventToEdit.color);
+      setIsRecurring(eventToEdit.isRecurring || false);
+      setRecurrencePattern(eventToEdit.recurrencePattern || 'daily');
+      handleShow();
     }
   }, [eventToEdit]);
 
@@ -29,8 +31,9 @@ const EventForm = ({ addEvent, editEvent, eventToEdit }) => {
 
   const handleShow = () => setShow(true);
 
-  const clearForm = () =>{
+  const clearForm = () => {
     setTitle('');
+    setStartDate('');
     setEndDate('');
     setDescription('');
     setColor('#000000');
@@ -41,11 +44,11 @@ const EventForm = ({ addEvent, editEvent, eventToEdit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (title && endDate) {
+    if (title && startDate && endDate) {
       if (eventToEdit) {
-        editEvent({ ...eventToEdit, title, endDate, description, color, isRecurring, recurrencePattern });
+        editEvent({ ...eventToEdit, title, startDate, endDate, description, color, isRecurring, recurrencePattern });
       } else {
-        addEvent({ title, endDate, description, color, isRecurring, recurrencePattern });
+        addEvent({ title, startDate, endDate, description, color, isRecurring, recurrencePattern });
       }
       clearForm();
       handleClose();
@@ -55,7 +58,7 @@ const EventForm = ({ addEvent, editEvent, eventToEdit }) => {
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        {eventToEdit ? 'Edit Event':'Add Event'}
+        {eventToEdit ? 'Edit Event' : 'Add Event'}
       </Button>
 
       <Modal show={show} onHide={handleClose}>
@@ -71,6 +74,16 @@ const EventForm = ({ addEvent, editEvent, eventToEdit }) => {
                 placeholder="Enter event title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
+                required
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formStartDate">
+              <Form.Label>Start Date</Form.Label>
+              <Form.Control
+                type="datetime-local"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
                 required
               />
             </Form.Group>
@@ -115,20 +128,20 @@ const EventForm = ({ addEvent, editEvent, eventToEdit }) => {
             </Form.Group>
 
             {isRecurring && (
-                <Form.Group controlId='formRecurrencePattern'>
-                    <Form.Label>Recurrence Pattern</Form.Label>
-                    <Form.Control
-                        as= 'select'
-                        value={recurrencePattern}
-                        onChange={(e) => setRecurrencePattern(e.target.value)}
-                    >
-                        <option value= 'daily'>Daily</option>
-                        <option value= 'weekly'>Weekly</option>
-                        <option value= 'monthly'>Monthly</option>
-                        <option value= 'yearly'>Yearly</option>
-                        <option value= 'custom'>Custom</option>
-                    </Form.Control>
-                </Form.Group>
+              <Form.Group controlId='formRecurrencePattern'>
+                <Form.Label>Recurrence Pattern</Form.Label>
+                <Form.Control
+                  as='select'
+                  value={recurrencePattern}
+                  onChange={(e) => setRecurrencePattern(e.target.value)}
+                >
+                  <option value='daily'>Daily</option>
+                  <option value='weekly'>Weekly</option>
+                  <option value='monthly'>Monthly</option>
+                  <option value='yearly'>Yearly</option>
+                  <option value='custom'>Custom</option>
+                </Form.Control>
+              </Form.Group>
             )}
 
             <Button variant="primary" type="submit">
