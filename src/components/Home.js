@@ -77,7 +77,7 @@ function Home() {
   };
 
   return (
-    <Container>
+    <Container fluid>
       <Row className="justify-content-md-center">
         <Col md="auto">
           <h1>Event Countdown Timer</h1>
