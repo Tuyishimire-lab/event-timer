@@ -10,7 +10,7 @@ const Event = ({ event, handleEdit, deleteEvent }) => {
 
   return (
     <Col >
-        <div style={{ borderLeft: `5px solid ${event.color}`,width: '400px', padding: '10px', margin: '10px 0', height: '250px', overflow: 'hidden', position: 'relative' }}>
+        <div style={{ borderLeft: `5px solid ${event.color}`,width: '350px', padding: '10px', margin: '10px 0', height: '250px', overflow: 'hidden', position: 'relative' }}>
             <h4>{event.title}</h4>
             <p><strong>Start:</strong> {new Date(event.startDate).toLocaleString()}</p>
             <p><strong>End:</strong> {new Date(event.endDate).toLocaleString()}</p>
