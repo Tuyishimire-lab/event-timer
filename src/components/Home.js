@@ -1,62 +1,61 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+// Home.js
+import React, { useEffect, useState, useContext } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 import EventForm from './EventForm';
-import CountDownTimer from './CountDownTimer';
 import { sortEventsByEndTime } from '../utils/sort';
+import Event from './Event';
+import { EventsContext } from '../EventsContext';
 
 function Home() {
-  const [events, setEvents] = useState([]);
+  const { events, setEvents } = useContext(EventsContext);
   const [eventToEdit, setEventToEdit] = useState(null);
 
-  const handleRecurringEvents = useCallback(() => {
-    const now = new Date();
-    const updatedEvents = events.map((event) => {
-      if (event.isRecurring) {
-        const eventEndDate = new Date(event.endDate);
-        const eventStartDate = new Date(event.startDate);
-
-        if (eventEndDate <= now) {
-          let newStartDate = new Date(eventStartDate);
-          let newEndDate = new Date(eventEndDate);
-
-          switch (event.recurrencePattern) {
-            case 'daily':
-              newStartDate.setDate(newStartDate.getDate() + 1);
-              newEndDate.setDate(newEndDate.getDate() + 1);
-              break;
-            case 'weekly':
-              newStartDate.setDate(newStartDate.getDate() + 7);
-              newEndDate.setDate(newEndDate.getDate() + 7);
-              break;
-            case 'monthly':
-              newStartDate.setMonth(newStartDate.getMonth() + 1);
-              newEndDate.setMonth(newEndDate.getMonth() + 1);
-              break;
-            case 'yearly':
-              newStartDate.setFullYear(newStartDate.getFullYear() + 1);
-              newEndDate.setFullYear(newEndDate.getFullYear() + 1);
-              break;
-            case 'custom':
-              // Handle custom recurrence pattern if needed
-              break;
-            default:
-              break;
-          }
-          return { ...event, startDate: newStartDate.toISOString(), endDate: newEndDate.toISOString() };
-        }
-      }
-      return event;
-    });
-
-    setEvents(sortEventsByEndTime(updatedEvents));
-  }, [events]);
-
   useEffect(() => {
-    const interval = setInterval(() => {
-      handleRecurringEvents();
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [handleRecurringEvents]);
+    const handleRecurringEvents = () => {
+      const now = new Date();
+      const updatedEvents = events.map((event) => {
+        if (event.isRecurring) {
+          const eventEndDate = new Date(event.endDate);
+          const eventStartDate = new Date(event.startDate);
+
+          if (eventEndDate <= now) {
+            let newStartDate = new Date(eventStartDate);
+            let newEndDate = new Date(eventEndDate);
+
+            switch (event.recurrencePattern) {
+              case 'daily':
+                newStartDate.setDate(newStartDate.getDate() + 1);
+                newEndDate.setDate(newEndDate.getDate() + 1);
+                break;
+              case 'weekly':
+                newStartDate.setDate(newStartDate.getDate() + 7);
+                newEndDate.setDate(newEndDate.getDate() + 7);
+                break;
+              case 'monthly':
+                newStartDate.setMonth(newStartDate.getMonth() + 1);
+                newEndDate.setMonth(newEndDate.getMonth() + 1);
+                break;
+              case 'yearly':
+                newStartDate.setFullYear(newStartDate.getFullYear() + 1);
+                newEndDate.setFullYear(newEndDate.getFullYear() + 1);
+                break;
+              case 'custom':
+                // Handle custom recurrence pattern if needed
+                break;
+              default:
+                break;
+            }
+            return { ...event, startDate: newStartDate.toISOString(), endDate: newEndDate.toISOString() };
+          }
+        }
+        return event;
+      });
+
+      setEvents(sortEventsByEndTime(updatedEvents));
+    };
+
+    handleRecurringEvents();
+  }, [events, setEvents]);
 
   const addEvent = (newEvent) => {
     setEvents((prevEvents) => sortEventsByEndTime([...prevEvents, { ...newEvent, id: Date.now() }]));
@@ -83,17 +82,11 @@ function Home() {
           <EventForm addEvent={addEvent} editEvent={editEvent} eventToEdit={eventToEdit} />
           <Row>
             {events.map((event) => (
-              <Col key={event.id} xs={12} md={6} lg={4}>
-                <div style={{ borderLeft: `5px solid ${event.color}`, padding: '10px', margin: '10px 0' }}>
-                  <h4>{event.title}</h4>
-                  <p><strong>Start:</strong> {new Date(event.startDate).toLocaleString()}</p>
-                  <p><strong>End:</strong> {new Date(event.endDate).toLocaleString()}</p>
-                  <p>{event.description}</p>
-                  <CountDownTimer startDate={event.startDate} endDate={event.endDate} recurrencePattern={event.recurrencePattern} />
-                  <Button variant="secondary" onClick={() => handleEdit(event)}>Edit</Button>
-                  <Button variant="danger" onClick={() => deleteEvent(event.id)}>Delete</Button>
-                </div>
-              </Col>
+                  <Event
+                    event={event}
+                    handleEdit={handleEdit}
+                    deleteEvent={deleteEvent}
+                  />
             ))}
           </Row>
         </Col>

@@ -14,7 +14,10 @@ const NavBar = () =>{
                             <Nav.Link>Home</Nav.Link>
                         </LinkContainer>
                         <LinkContainer to='/Calendar'>
-                            <Nav.Link>Calender</Nav.Link>
+                            <Nav.Link>Calendar</Nav.Link>
+                        </LinkContainer>
+                        <LinkContainer to='/Pomodoro'>
+                            <Nav.Link>Pomodoro</Nav.Link>
                         </LinkContainer>
                     </Nav>
                 </Navbar.Collapse>
