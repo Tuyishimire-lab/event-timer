@@ -19,7 +19,9 @@ const Calendar = () => {
     title: event.title,
     start: event.startDate,
     end: event.endDate,
-    color: event.color
+    color: event.color,
+    backgroundColor: event.color,
+    borderColor: event.color 
   }));
 
   
