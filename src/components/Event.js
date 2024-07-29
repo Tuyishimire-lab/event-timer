@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Col, Button, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import CountDownTimer from './CountDownTimer';
+import { FaEdit, FaTrash, FaEye, FaCalendar } from 'react-icons/fa';
 
 const Event = ({ event, handleEdit, deleteEvent, navigateToEvent }) => {
   const [showModal, setShowModal] = useState(false);
@@ -29,9 +30,9 @@ const Event = ({ event, handleEdit, deleteEvent, navigateToEvent }) => {
             <CountDownTimer startDate={event.startDate} endDate={event.endDate} isRecurring={event.isRecurring} recurrencePattern={event.recurrencePattern}/>
             <p>{event.description.length > 50 ? `${event.description.substring(0, 50)}...` : event.description}</p>
             <div style={{ position: 'absolute', bottom: '10px', width: '100%' }}>
-                <Button variant="secondary" onClick={() => handleEdit(event)} style={{ marginRight: '10px' }}>Edit</Button>
-                <Button variant="danger" onClick={() => deleteEvent(event.id)} style={{ marginRight: '10px' }}>Delete</Button>
-                <Button variant="primary" onClick={handleShow}>View Details</Button>
+                <Button variant="secondary" onClick={() => handleEdit(event)} style={{ marginRight: '10px' }}><FaEdit/></Button>
+                <Button variant="danger" onClick={() => deleteEvent(event.id)} style={{ marginRight: '10px' }}><FaTrash/></Button>
+                <Button variant="primary" onClick={handleShow}><FaEye/></Button>
             </div>
         </div>
 
@@ -45,7 +46,7 @@ const Event = ({ event, handleEdit, deleteEvent, navigateToEvent }) => {
                 <p>{event.description}</p>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={handleNavigation}>Go to Event</Button>
+                <Button variant="secondary" onClick={handleNavigation}><FaCalendar/></Button>
             </Modal.Footer>
         </Modal>
     </Col>
