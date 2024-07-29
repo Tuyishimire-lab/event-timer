@@ -28,8 +28,8 @@ const Event = ({ event, handleEdit, deleteEvent, navigateToEvent }) => {
             <Card.Body>
                 <Card.Title>{event.title}</Card.Title>
                 <Card.Subtitle className='mb-2 text-muted'>
-                    <p><strong>Start:</strong> {new Date(event.startDate).toLocaleString()}</p>
-                    <p><strong>End:</strong> {new Date(event.endDate).toLocaleString()}</p>
+                    <p style={{margin:'2px',}}><strong>Start:</strong> {new Date(event.startDate).toLocaleString()}</p>
+                    <p style={{margin:'2px',}}><strong>End:</strong> {new Date(event.endDate).toLocaleString()}</p>
                 </Card.Subtitle>
                 <CountDownTimer startDate={event.startDate} endDate={event.endDate} isRecurring={event.isRecurring} recurrencePattern={event.recurrencePattern}/>
                 <Card.Text>
