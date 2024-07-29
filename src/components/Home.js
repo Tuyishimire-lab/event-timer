@@ -6,7 +6,7 @@ import { sortEventsByEndTime } from '../utils/sort';
 import Event from './Event';
 import { EventsContext } from '../EventsContext';
 
-function Home() {
+function Home({navigateToEvent}) {
   const { events, setEvents } = useContext(EventsContext);
   const [eventToEdit, setEventToEdit] = useState(null);
 
@@ -89,6 +89,7 @@ function Home() {
                 event={event}
                 handleEdit={handleEdit}
                 deleteEvent={deleteEvent}
+                navigateToEvent={navigateToEvent}
               />
             ))}
           </Row>

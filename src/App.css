@@ -21,7 +21,11 @@
 .event-card p {
   margin: 5px 0;
 } */
-
+.highlight-event{
+  border: 2px solid red !important;
+  background-color: yellow !important;
+}
+/* Pomodoro app */
 #clock {
   max-width: 500px;
   margin: auto;
@@ -75,4 +79,61 @@
 }
 #reset{
   margin: 5px;
+}
+
+/* custom styling for the calendar container */
+
+.fc {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 10px;
+  min-width: 300px;
+  margin:15px auto;
+}
+/* .fc-view-container{
+  height: 600px;
+  overflow-y: auto;
+} */
+
+/* Custom styles for calendar header */
+.fc-toolbar {
+  background-color: #007bff;
+  color: white;
+  border-radius: 8px 8px 0 0;
+}
+.fc-toolbar h2 {
+  margin: 5px;
+  padding: 5px;
+  color: rgb(161, 42, 42);
+  font-size: 20px;
+}
+
+/* Custom styles for calendar events */
+.fc-event {
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.fc-button {
+  background-color: #007bff;
+  color: rgb(124, 11, 11);
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+/* Hover effect for events */
+.fc-event:hover {
+  background-color: #218838;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .fc-toolbar {
+    flex-direction: column;
+  }
 }
