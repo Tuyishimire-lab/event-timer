@@ -7,6 +7,8 @@ import Home from './components/Home';
 import Calendar from './components/Calendar';
 import Pomodoro from './components/Pomodoro';
 import { EventsProvider } from './EventsContext';
+import {TasksProvider} from './TasksContext';
+import {PomodoroProvider} from './PomodoroContext';
 
 function App(){
   const calendarRef = useRef(null);
@@ -18,18 +20,22 @@ function App(){
   }
   return(
     <EventsProvider>
-      <NavBar/>
-      <Container>
-        <Row className='justify-content-md-center'>
-          <Col md='auto'>
-            <Routes>
-              <Route path="/"  element={<Home navigateToEvent={navigateToEvent}/>} />
-              <Route path="/Calendar" element={<Calendar ref={calendarRef}/>} />
-              <Route path='/Pomodoro' element={<Pomodoro/>}/>
-            </Routes>
-          </Col>
-        </Row>
-      </Container>
+      <TasksProvider>
+        <PomodoroProvider>
+          <NavBar />
+          <Container>
+            <Row className='justify-content-md-center'>
+              <Col md='auto'>
+                <Routes>
+                  <Route path="/" element={<Home navigateToEvent={navigateToEvent} />} />
+                  <Route path="/Calendar" element={<Calendar ref={calendarRef} />} />
+                  <Route path='/Pomodoro' element={<Pomodoro />} />
+                </Routes>
+              </Col>
+            </Row>
+          </Container>
+        </PomodoroProvider>
+      </TasksProvider>
     </EventsProvider>
   )
 }

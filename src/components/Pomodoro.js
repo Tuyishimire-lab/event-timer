@@ -1,17 +1,28 @@
 import React, { useState, useContext } from 'react';
 import { Container, Row, Col, Button, Form, Modal } from 'react-bootstrap';
-import { EventsContext } from '../EventsContext';
+import { TasksContext } from '../TasksContext';
+import { PomodoroContext } from '../PomodoroContext';
 import '../App.css';
 
 const Pomodoro = () => {
+  // Task Context
+  const {
+    tasks,
+    completedTasks,
+    currentTask,
+    taskPomodoros,
+    addTask,
+    completeTask,
+    setCurrentTaskForPomodoro
+  } = useContext(TasksContext);
+  
+  // Pomodoro Context
   const {
     breakLength,
     sessionLength,
     timeLeft,
     isRunning,
     isSession,
-    addTask,
-    tasks,
     resetPomodoro,
     startStopPomodoro,
     updateSettings,
@@ -20,32 +31,54 @@ const Pomodoro = () => {
     pomodoroCount,
     breakCount,
     longBreakCount
-  } = useContext(EventsContext);
+  } = useContext(PomodoroContext);
 
+  // State for adding new tasks and managing settings
   const [task, setTask] = useState('');
+  const [priority, setPriority] = useState('Medium');
   const [showSettings, setShowSettings] = useState(false);
   const [newSessionLength, setNewSessionLength] = useState(sessionLength);
   const [newBreakLength, setNewBreakLength] = useState(breakLength);
   const [newLongBreakLength, setNewLongBreakLength] = useState(longBreakLength);
   const [newPomodorosBeforeLongBreak, setNewPomodorosBeforeLongBreak] = useState(pomodorosBeforeLongBreak);
 
+  // Add a new task
   const handleAddTask = () => {
     if (task) {
-      addTask(task);
+      addTask(task, priority);
       setTask('');
+      setPriority('Medium');
     }
   };
 
+  // Select a task to work on
+  const handleSelectTask = (task) => {
+    setCurrentTaskForPomodoro(task);
+  };
+
+  // Mark a task as completed
+  const handleCompleteTask = (task) => {
+    completeTask(task);
+  };
+
+  // Format time for display
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
     return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
+  // Save changes to settings
   const handleSaveSettings = () => {
     updateSettings(newSessionLength, newBreakLength, newLongBreakLength, newPomodorosBeforeLongBreak);
     setShowSettings(false);
   };
+
+  // Sort tasks based on priority
+  const sortedTasks = tasks.sort((a, b) => {
+    const priorityOrder = { High: 1, Medium: 2, Low: 3 };
+    return priorityOrder[a.priority] - priorityOrder[b.priority];
+  });
 
   return (
     <Container id="pomodoro" className="mt-5">
@@ -55,47 +88,83 @@ const Pomodoro = () => {
             <h2 className="mb-4">Pomodoro Timer</h2>
             <div className="d-flex justify-content-between mb-4">
               <div className="pomodoro-stat">
-                <span>Pomodoro</span>
+                <span>Pomodoros</span>
                 <span>{pomodoroCount}</span>
               </div>
               <div className="pomodoro-stat">
-                <span>Rest</span>
+                <span>Breaks</span>
                 <span>{breakCount}</span>
               </div>
               <div className="pomodoro-stat">
-                <span>Long Rest</span>
+                <span>Long Breaks</span>
                 <span>{longBreakCount}</span>
               </div>
             </div>
             <div className="pomodoro-timer">
               <h1 className="mb-0">{formatTime(timeLeft)}</h1>
-              <p>{isSession ? 'Session' : 'Break'}</p>
+              <p>{isSession ? 'Session' : (pomodoroCount % pomodorosBeforeLongBreak === 0 ? 'Long Break' : 'Break')}</p>
             </div>
             <div className="pomodoro-controls mt-3">
               <Button style={{margin: '5px'}} variant="primary" className="me-2" onClick={startStopPomodoro}>
                 {isRunning ? 'STOP' : 'START'}
               </Button>
-              <Button style={{margin: '5px'}} variant="secondary" onClick={resetPomodoro}>RESET</Button>
-              <Button style={{margin: '5px'}} variant="info" onClick={() => setShowSettings(true)}>Settings</Button>
+              <Button style={{margin: '5px'}} variant="danger" onClick={resetPomodoro}>RESET</Button>
+              <Button style={{margin: '5px'}} variant="info" onClick={() => setShowSettings(true)}>SETTINGS</Button>
             </div>
-            <div className="pomodoro-task mt-4">
-              <h4>Tasks</h4>
-              <div className="task-input d-flex">
+            <Form className="mt-4">
+              <Form.Group controlId="taskInput">
+                <Form.Label>Add Task</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Add here the task you will focus on"
+                  placeholder="Enter task"
                   value={task}
                   onChange={(e) => setTask(e.target.value)}
                 />
-                <Button variant="success" onClick={handleAddTask}>+</Button>
-              </div>
-              <ul className="task-list mt-3">
-                {tasks.map((task, index) => (
-                  <li key={index}>{task}</li>
+                <Form.Select
+                  value={priority}
+                  onChange={(e) => setPriority(e.target.value)}
+                  className="mt-2"
+                >
+                  <option value="High">High</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Low">Low</option>
+                </Form.Select>
+              </Form.Group>
+              <Button style={{margin: '5px'}} variant="primary" onClick={handleAddTask}>Add Task</Button>
+            </Form>
+            <div className="mt-4">
+              <h4>Tasks</h4>
+              <ul className="list-group">
+                {sortedTasks.map((task, index) => (
+                  <li
+                    key={index}
+                    className={`list-group-item ${task.completed ? 'list-group-item-success' : ''} ${currentTask === task.task ? 'active' : ''}`}
+                  >
+                    <span onClick={() => handleSelectTask(task.task)}>{task.task} - {taskPomodoros[task.task] || 0} Pomodoros</span>
+                    {!task.completed && (
+                      <Button
+                        variant="success"
+                        size="sm"
+                        className="float-end"
+                        onClick={() => handleCompleteTask(task.task)}
+                      >
+                        Complete
+                      </Button>
+                    )}
+                  </li>
                 ))}
               </ul>
             </div>
-            
+            <div className="mt-4">
+              <h4>Completed Tasks</h4>
+              <ul className="list-group">
+                {completedTasks.map((task, index) => (
+                  <li key={index} className="list-group-item list-group-item-success">
+                    {task}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </Col>
       </Row>

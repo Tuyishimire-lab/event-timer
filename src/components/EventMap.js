@@ -2,9 +2,11 @@ import React, { useContext } from 'react';
 import { Container, Row, Col, Dropdown, Badge } from 'react-bootstrap';
 import { FaCheckCircle, FaHourglassHalf, FaPlayCircle, FaClock } from 'react-icons/fa';
 import { EventsContext } from '../EventsContext';
+import { PomodoroContext } from '../PomodoroContext';
 
 const EventMap = ({ navigateToMap }) => {
-  const { events, isSession, sessionLength, breakLength, isRunning } = useContext(EventsContext);
+  const { events } = useContext(EventsContext);
+  const { isRunning, isSession, sessionLength, breakLength } = useContext(PomodoroContext);
 
   const now = new Date();
 
