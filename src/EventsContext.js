@@ -6,9 +6,15 @@ export const EventsProvider = ({ children }) => {
   const [events, setEvents] = useState([]);
   const [breakLength, setBreakLength] = useState(5);
   const [sessionLength, setSessionLength] = useState(25);
+  const [longBreakLength, setLongBreakLength] = useState(15);
+  const [pomodorosBeforeLongBreak, setPomodorosBeforeLongBreak] = useState(4);
   const [timeLeft, setTimeLeft] = useState(25 * 60);
   const [isRunning, setIsRunning] = useState(false);
   const [isSession, setIsSession] = useState(true);
+  const [tasks, setTasks] = useState([]);
+  const [pomodoroCount, setPomodoroCount] = useState(0);
+  const [breakCount, setBreakCount] = useState(0);
+  const [longBreakCount, setLongBreakCount] = useState(0);
   const timerRef = useRef(null);
 
   useEffect(() => {
@@ -28,12 +34,20 @@ export const EventsProvider = ({ children }) => {
       audio.play();
       if (isSession) {
         setTimeLeft(breakLength * 60);
+        setIsSession(false);
+        setPomodoroCount(prev => prev + 1);
       } else {
-        setTimeLeft(sessionLength * 60);
+        setIsSession(true);
+        if ((pomodoroCount + 1) % pomodorosBeforeLongBreak === 0) {
+          setTimeLeft(longBreakLength * 60);
+          setLongBreakCount(prev => prev + 1);
+        } else {
+          setTimeLeft(sessionLength * 60);
+          setBreakCount(prev => prev + 1);
+        }
       }
-      setIsSession(!isSession);
     }
-  }, [timeLeft, isSession, breakLength, sessionLength]);
+  }, [timeLeft, isSession, breakLength, sessionLength, longBreakLength, pomodoroCount, pomodorosBeforeLongBreak]);
 
   const resetPomodoro = () => {
     clearInterval(timerRef.current);
@@ -42,9 +56,13 @@ export const EventsProvider = ({ children }) => {
     setSessionLength(25);
     setTimeLeft(25 * 60);
     setIsSession(true);
+    setPomodoroCount(0);
+    setBreakCount(0);
+    setLongBreakCount(0);
     const audio = document.getElementById('beep');
     audio.pause();
     audio.currentTime = 0;
+    setTasks([]);
   };
 
   const startStopPomodoro = () => {
@@ -73,6 +91,18 @@ export const EventsProvider = ({ children }) => {
     }
   };
 
+  const addTask = (task) => {
+    setTasks([...tasks, task]);
+  };
+
+  const updateSettings = (newSessionLength, newBreakLength, newLongBreakLength, newPomodorosBeforeLongBreak) => {
+    setSessionLength(newSessionLength);
+    setBreakLength(newBreakLength);
+    setLongBreakLength(newLongBreakLength);
+    setPomodorosBeforeLongBreak(newPomodorosBeforeLongBreak);
+    setTimeLeft(newSessionLength * 60);
+  };
+
   return (
     <EventsContext.Provider
       value={{
@@ -83,10 +113,18 @@ export const EventsProvider = ({ children }) => {
         timeLeft,
         isRunning,
         isSession,
+        addTask,
+        tasks,
         resetPomodoro,
         startStopPomodoro,
         incrementLength,
-        decrementLength
+        decrementLength,
+        updateSettings,
+        longBreakLength,
+        pomodorosBeforeLongBreak,
+        pomodoroCount,
+        breakCount,
+        longBreakCount
       }}
     >
       {children}
