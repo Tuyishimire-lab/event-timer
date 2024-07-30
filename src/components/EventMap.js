@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { Container, Row, Col, Dropdown, Badge } from 'react-bootstrap';
-import { FaCheckCircle, FaHourglassHalf, FaPlayCircle } from 'react-icons/fa';
+import { FaCheckCircle, FaHourglassHalf, FaPlayCircle, FaClock } from 'react-icons/fa';
 import { EventsContext } from '../EventsContext';
 
 const EventMap = ({ navigateToMap }) => {
-  const { events } = useContext(EventsContext);
+  const { events, isSession, sessionLength, breakLength, isRunning } = useContext(EventsContext);
 
   const now = new Date();
 
@@ -28,9 +28,9 @@ const EventMap = ({ navigateToMap }) => {
 
   return (
     <Container style={{ margin: '5px' }}>
-      <Row>
-        <Col xs={4} className="mb-2">
-          <div style={{ textAlign: 'center', padding: '10px', border: '1px solid green', borderRadius: '5px' }}>
+      <Row className="justify-content-center">
+        <Col xs={12} md={3} className="mb-2 d-flex justify-content-center">
+          <div style={{ textAlign: 'center', padding: '10px', border: '1px solid green', borderRadius: '5px', width: '100%' }}>
             <FaPlayCircle style={{ color: 'green', fontSize: '1.5em' }} />
             <h6>Running</h6>
             <Badge pill bg="success">{categorizedEvents.running.length}</Badge>
@@ -52,8 +52,8 @@ const EventMap = ({ navigateToMap }) => {
             </Dropdown>
           </div>
         </Col>
-        <Col xs={4} className="mb-2">
-          <div style={{ textAlign: 'center', padding: '10px', border: '1px solid orange', borderRadius: '5px' }}>
+        <Col xs={12} md={3} className="mb-2 d-flex justify-content-center">
+          <div style={{ textAlign: 'center', padding: '10px', border: '1px solid orange', borderRadius: '5px', width: '100%' }}>
             <FaHourglassHalf style={{ color: 'orange', fontSize: '1.5em' }} />
             <h6>Pending</h6>
             <Badge pill bg="warning">{categorizedEvents.pending.length}</Badge>
@@ -75,8 +75,8 @@ const EventMap = ({ navigateToMap }) => {
             </Dropdown>
           </div>
         </Col>
-        <Col xs={4} className="mb-2">
-          <div style={{ textAlign: 'center', padding: '10px', border: '1px solid red', borderRadius: '5px' }}>
+        <Col xs={12} md={3} className="mb-2 d-flex justify-content-center">
+          <div style={{ textAlign: 'center', padding: '10px', border: '1px solid red', borderRadius: '5px', width: '100%' }}>
             <FaCheckCircle style={{ color: 'red', fontSize: '1.5em' }} />
             <h6>Passed</h6>
             <Badge pill bg="danger">{categorizedEvents.passed.length}</Badge>
@@ -96,6 +96,14 @@ const EventMap = ({ navigateToMap }) => {
                 )}
               </Dropdown.Menu>
             </Dropdown>
+          </div>
+        </Col>
+        <Col xs={12} md={3} className="mb-2 d-flex justify-content-center">
+          <div style={{ textAlign: 'center', padding: '10px', border: '1px solid blue', borderRadius: '5px', width: '100%' }}>
+            <FaClock style={{ color: 'blue', fontSize: '1.5em' }} />
+            <h6>Pomodoro</h6>
+            <p style={{ margin: '3px' }}>{isRunning ? (isSession ? 'Session' : 'Break') : 'Stopped'}</p>
+            <p style={{ margin: '3px' }}>{isSession ? sessionLength : breakLength} M</p>
           </div>
         </Col>
       </Row>

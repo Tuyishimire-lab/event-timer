@@ -1,6 +1,7 @@
 // EventForm.js
 import React, { useEffect, useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
+import { FaPlus } from 'react-icons/fa';
 
 const EventForm = ({ addEvent, editEvent, eventToEdit }) => {
   const [show, setShow] = useState(false);
@@ -51,8 +52,8 @@ const EventForm = ({ addEvent, editEvent, eventToEdit }) => {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Add Event
+      <Button variant="primary" onClick={handleShow} style={{margin:'5px', textAlign:'center'}}>
+        <FaPlus/>
       </Button>
 
       <Modal show={show} onHide={handleClose}>
