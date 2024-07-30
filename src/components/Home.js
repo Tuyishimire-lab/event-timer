@@ -4,9 +4,17 @@ import { Container, Row, Col } from 'react-bootstrap';
 import EventForm from './EventForm';
 import { sortEventsByEndTime } from '../utils/sort';
 import Event from './Event';
+import EventMap from './EventMap';
 import { EventsContext } from '../EventsContext';
+import { useNavigate } from 'react-router-dom';
 
 function Home({navigateToEvent}) {
+
+  const navigate = useNavigate();
+
+  const navigateMap = (eventId) =>{
+    navigate(`/calendar?eventId=${eventId}`);
+  };
   const { events, setEvents } = useContext(EventsContext);
   const [eventToEdit, setEventToEdit] = useState(null);
 
@@ -81,6 +89,7 @@ function Home({navigateToEvent}) {
       <Row className="justify-content-md-center">
         <Col md="auto">
           <h1>Event Countdown Timer</h1>
+          <EventMap navigateToMap={navigateMap}/>
           <EventForm addEvent={addEvent} editEvent={editEvent} eventToEdit={eventToEdit} />
           <Row>
             {events.map((event) => (
