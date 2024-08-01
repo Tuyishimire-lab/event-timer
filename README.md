@@ -19,7 +19,7 @@ Features
 - Settings: Allows users to customize Pomodoro session lengths and break durations.
 - Responsive Design: Optimized for both desktop and mobile devices.
 
-Installation
+#Installation
 
 1. Clone the repository:
     ```bash
@@ -39,7 +39,7 @@ Installation
 
 The application will be available at `http://localhost:3000`.
 
-Usage
+#Usage
 
 Pomodoro Timer
 
@@ -66,31 +66,31 @@ Settings
 
 Components
 
-# `PomodoroTimer.js`
+#`PomodoroTimer.js`
 
 Handles the main functionality of the Pomodoro timer, including start/stop, reset, and timer logic for sessions and breaks.
 
-# `TaskManager.js`
+#`TaskManager.js`
 
 Handles adding, displaying, editing, and deleting tasks.
 
-# `EventManager.js`
+#`EventManager.js`
 
 Handles adding, displaying, editing, and deleting events.
 
-# `Settings.js`
+#`Settings.js`
 
 Handles customization of Pomodoro session lengths and break durations.
 
-# `EventsContext.js`
+#`EventsContext.js`
 
 Provides context for managing events state.
 
-# `TasksContext.js`
+#`TasksContext.js`
 
 Provides context for managing tasks state.
 
-# `PomodoroContext.js`
+#`PomodoroContext.js`
 
 Provides context for managing Pomodoro timer state.
 
