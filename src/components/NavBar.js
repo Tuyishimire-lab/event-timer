@@ -19,6 +19,9 @@ const NavBar = () =>{
                         <LinkContainer to='/Pomodoro'>
                             <Nav.Link>Pomodoro</Nav.Link>
                         </LinkContainer>
+                        <LinkContainer to='/Statistics'>
+                            <Nav.Link>Statistics</Nav.Link>
+                        </LinkContainer>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

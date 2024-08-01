@@ -24,7 +24,7 @@ const Event = ({ event, handleEdit, deleteEvent, navigateToEvent }) => {
   return (
     <Col >
 
-        <Card style={{ margin: '10px', marginLeft:'1px',marginRight: '1px' ,width: '325px', height: '250px', borderLeft: `5px solid ${event.color}` }}>
+        <Card style={{ margin: '10px', marginLeft:'1px',marginRight: '1px' ,width: '320px', height: '250px', borderLeft: `5px solid ${event.color}` }}>
             <Card.Body>
                 <Card.Title>{event.title}</Card.Title>
                 <Card.Subtitle className='mb-2 text-muted'>

@@ -3,6 +3,7 @@ import { Container, Row, Col, Dropdown, Badge } from 'react-bootstrap';
 import { FaCheckCircle, FaHourglassHalf, FaPlayCircle, FaClock } from 'react-icons/fa';
 import { EventsContext } from '../EventsContext';
 import { PomodoroContext } from '../PomodoroContext';
+import PomodoroProgress from './Progress';
 
 const EventMap = ({ navigateToMap }) => {
   const { events } = useContext(EventsContext);
@@ -29,9 +30,9 @@ const EventMap = ({ navigateToMap }) => {
   );
 
   return (
-    <Container style={{ margin: '5px' }}>
-      <Row className="justify-content-center">
-        <Col xs={12} md={3} className="mb-2 d-flex justify-content-center">
+    <Container className='map'>
+      <Row className="map-content">
+        <Col  md={3} className="mb-2 d-flex justify-content-center">
           <div style={{ textAlign: 'center', padding: '10px', border: '1px solid green', borderRadius: '5px', width: '100%' }}>
             <FaPlayCircle style={{ color: 'green', fontSize: '1.5em' }} />
             <h6>Running</h6>
@@ -106,6 +107,7 @@ const EventMap = ({ navigateToMap }) => {
             <h6>Pomodoro</h6>
             <p style={{ margin: '3px' }}>{isRunning ? (isSession ? 'Session' : 'Break') : 'Stopped'}</p>
             <p style={{ margin: '3px' }}>{isSession ? sessionLength : breakLength} M</p>
+            <PomodoroProgress/>
           </div>
         </Col>
       </Row>

@@ -15,6 +15,7 @@ export const PomodoroProvider = ({ children }) => {
   const [pomodoroCount, setPomodoroCount] = useState(0);
   const [breakCount, setBreakCount] = useState(0);
   const [longBreakCount, setLongBreakCount] = useState(0);
+  const [pomodoroLog, setPomodoroLog] = useState([]);
 
   const timerRef = useRef(null);
 
@@ -34,6 +35,8 @@ export const PomodoroProvider = ({ children }) => {
       const audio = document.getElementById('beep');
       audio.play();
       if (isSession) {
+        const now = new Date();
+        setPomodoroLog(prevLog => [...prevLog, { task: currentTask, completedAt: now }]);
         setPomodoroCount(prev => prev + 1);
         if (currentTask) {
           incrementPomodoroCount(currentTask);
@@ -76,6 +79,39 @@ export const PomodoroProvider = ({ children }) => {
     setTimeLeft(newSessionLength * 60);
   };
 
+  const calculateProgress = () => {
+    const totalDuration = isSession
+      ? sessionLength * 60
+      : (pomodoroCount % pomodorosBeforeLongBreak === 0 ? longBreakLength : breakLength) * 60;
+    const progress = ((totalDuration - timeLeft) / totalDuration) * 100;
+    return progress;
+  };
+
+  const getStatistics = () => {
+    const totalPomodoros = pomodoroLog.length;
+
+    // Calculate the number of pomodoros per task
+    const tasks = pomodoroLog.reduce((acc, entry) => {
+      acc[entry.task] = (acc[entry.task] || 0) + 1;
+      return acc;
+    }, {});
+
+    // Calculate the number of days from the first pomodoro log entry to today
+    const firstEntryDate = pomodoroLog.length > 0 ? new Date(pomodoroLog[0].completedAt) : new Date();
+    const daysElapsed = (new Date() - firstEntryDate) / (1000 * 60 * 60 * 24);
+
+    // Calculate the average pomodoros per day
+    const averagePomodorosPerDay = daysElapsed > 0 ? totalPomodoros / daysElapsed : 0;
+
+    return {
+      totalPomodoros,
+      tasks,
+      averagePomodorosPerDay,
+    };
+  };
+
+
+
   return (
     <PomodoroContext.Provider
       value={{
@@ -96,7 +132,10 @@ export const PomodoroProvider = ({ children }) => {
         setBreakCount,
         setLongBreakCount,
         setTimeLeft,
-        setIsSession
+        setIsSession,
+        calculateProgress,
+        pomodoroLog,
+        getStatistics
       }}
     >
       {children}

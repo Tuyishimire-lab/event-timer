@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Container, Row, Col, Button, Form, Modal } from 'react-bootstrap';
 import { TasksContext } from '../TasksContext';
 import { PomodoroContext } from '../PomodoroContext';
+
 import '../App.css';
 
 const Pomodoro = () => {
@@ -30,7 +31,7 @@ const Pomodoro = () => {
     pomodorosBeforeLongBreak,
     pomodoroCount,
     breakCount,
-    longBreakCount
+    longBreakCount,
   } = useContext(PomodoroContext);
 
   // State for adding new tasks and managing settings
@@ -83,9 +84,9 @@ const Pomodoro = () => {
   return (
     <Container id="pomodoro" className="mt-5">
       <Row className="justify-content-center">
-        <Col md={8}>
+        <Col md={12} lg={12} >
           <div className="text-center">
-            <h2 className="mb-4">Pomodoro Timer</h2>
+            <h2 className=" h2-cla mb-4">Pomodoro Timer</h2>
             <div className="d-flex justify-content-between mb-4">
               <div className="pomodoro-stat">
                 <span>Pomodoros</span>

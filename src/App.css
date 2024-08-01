@@ -1,84 +1,47 @@
-/* .event-card {
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  min-height: 300px; Ensure minimum height */
-/* 
-.event-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: auto;
-}
 
-.event-card h4 {
-  margin-bottom: 10px;
-}
+/* Home */
 
-.event-card p {
-  margin: 5px 0;
-} */
-.highlight-event{
-  border: 2px solid red !important;
-  background-color: yellow !important;
-}
-/* Pomodoro app */
-#clock {
-  max-width: 500px;
-  margin: auto;
-  margin-top: 15px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  background-color: #f8f9fa;
-}
 
-#clock h1 {
-  text-align: center;
-  margin-bottom: 20px;
-}
+@media (min-width: 768px){
+  
+  .map-content{
+    width: 650px;
+  }
+  .events{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    align-self: center;
+    justify-items: center;
+    margin: 0 auto;
+  }
 
-#clock .length-controls {
-  display: flex;
-  justify-content: space-between;
 }
+@media (min-width: 992px){
 
-#clock .length-controls > div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  .map-content{
+    width: 850px;
+  }
+  .events{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 0 auto;
+  }
 }
+@media (min-width: 1200px){
+  
+  .map-content{
+    width: 1100px;
+  }
+  .events{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 0 auto;
+  }
 
-#clock .length-controls h2 {
-  margin-bottom: 10px;
-}
-
-#clock .length-controls button {
-  margin: 5px;
-}
-
-#clock #timer {
-  text-align: center;
-  margin: 20px 0;
-}
-
-#clock #time-left {
-  font-size: 48px;
-  font-weight: bold;
-}
-
-#clock .controls {
-  display: flex;
-  justify-content: space-around;
-}
-#start_stop{
-  margin: 5px;
-}
-#reset{
-  margin: 5px;
 }
 
 /* custom styling for the calendar container */
@@ -139,8 +102,12 @@
 }
 
 #pomodoro {
-  max-width: 600px;
+  max-width: 900px;
   margin: 0 auto;
+}
+
+.h2-cla{
+  text-align: center;
 }
 
 .pomodoro-stat {
@@ -185,4 +152,47 @@
   padding: 10px;
   margin-bottom: 5px;
   border-radius: 5px;
+}
+
+@media (min-width: 768px){
+  .pomodoro-stat{
+    margin-right: 70px;
+    margin-left: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 17px;
+  }
+
+
+}
+@media (min-width: 992px){
+  .pomodoro-stat{
+    margin-right: 75px;
+    margin-left: 75px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.2em;
+  }
+}
+/* Statistics */
+.pomodoro-stats {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+}
+
+.pomodoro-stats .card-header {
+  background-color: #007bff;
+  color: white;
+}
+
+.pomodoro-stats .list-group-item {
+  border: none;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.pomodoro-stats .list-group-item:last-child {
+  border-bottom: none;
 }
