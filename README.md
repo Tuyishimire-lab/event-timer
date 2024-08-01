@@ -64,33 +64,33 @@ Settings
 - Access settings via the **Settings** button.
 - Adjust Pomodoro session length, short break length, long break length, and number of Pomodoros before a long break.
 
-### `Components`
+### Components
 
-####`PomodoroTimer.js`
+#### PomodoroTimer.js
 
 Handles the main functionality of the Pomodoro timer, including start/stop, reset, and timer logic for sessions and breaks.
 
-####`TaskManager.js`
+#### TaskManager.js
 
 Handles adding, displaying, editing, and deleting tasks.
 
-####`EventManager.js`
+#### EventManager.js
 
 Handles adding, displaying, editing, and deleting events.
 
-####`Settings.js`
+#### Settings.js
 
 Handles customization of Pomodoro session lengths and break durations.
 
-####`EventsContext.js`
+#### EventsContext.js
 
 Provides context for managing events state.
 
-####`TasksContext.js`
+#### TasksContext.js
 
 Provides context for managing tasks state.
 
-####`PomodoroContext.js`
+#### PomodoroContext.js
 
 Provides context for managing Pomodoro timer state.
 
