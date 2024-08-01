@@ -39,7 +39,7 @@ Features
 
 The application will be available at `http://localhost:3000`.
 
-#Usage
+# `Usage`
 
 Pomodoro Timer
 
