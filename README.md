@@ -10,7 +10,7 @@ Table of Contents
 - [Components](#components)
 - [Contributing](#contributing)
 
-Features
+# `Features`
 
 - Pomodoro Timer: Customizable session length, short break, and long break lengths.
 - Task Management: Add, delete, and track tasks.
@@ -19,7 +19,7 @@ Features
 - Settings: Allows users to customize Pomodoro session lengths and break durations.
 - Responsive Design: Optimized for both desktop and mobile devices.
 
-#Installation
+# `Installation`
 
 1. Clone the repository:
     ```bash
@@ -64,7 +64,7 @@ Settings
 - Access settings via the **Settings** button.
 - Adjust Pomodoro session length, short break length, long break length, and number of Pomodoros before a long break.
 
-Components
+# `Components`
 
 #`PomodoroTimer.js`
 
@@ -94,7 +94,7 @@ Provides context for managing tasks state.
 
 Provides context for managing Pomodoro timer state.
 
-# Contributing
+# `Contributing`
 
 1. Fork the repository.
 2. Create a new branch:
