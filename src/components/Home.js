@@ -85,8 +85,8 @@ function Home({navigateToEvent}) {
   };
 
   return (
-    <Container style={{margin: '0 auto'}}>
-      <Row className="justify-content-md-center">
+    <Container  style={{margin: '0 auto'}}>
+      <Row xs={1} md={2} className="justify-content-md-center">
         <Col md="auto" className='home-content'>
           <h2 style={{textAlign:'center'}}>Event Countdown Timer</h2>
           <EventMap navigateToMap={navigateMap}/>

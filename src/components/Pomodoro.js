@@ -156,7 +156,7 @@ const Pomodoro = () => {
                 ))}
               </ul>
             </div>
-            <div className="mt-4">
+            <div style={{marginBottom:'10px'}} className="mt-4">
               <h4>Completed Tasks</h4>
               <ul className="list-group">
                 {completedTasks.map((task, index) => (
