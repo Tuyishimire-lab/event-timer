@@ -20,8 +20,7 @@ export const getNextOccurrence = (currentStartDate, recurrencePattern) => {
         nextStartDate.setFullYear(nextStartDate.getFullYear() + 1);
         break;
       case 'custom':
-        // Handle custom recurrence pattern if needed
-        nextStartDate = new Date(startDate); // Placeholder logic for custom recurrence
+        nextStartDate = new Date(startDate); 
         break;
       default:
         nextStartDate = new Date(startDate);

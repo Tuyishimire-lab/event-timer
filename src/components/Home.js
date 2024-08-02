@@ -1,4 +1,3 @@
-// Home.js
 import React, { useEffect, useState, useContext, useCallback } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import EventForm from './EventForm';
@@ -45,9 +44,6 @@ function Home({navigateToEvent}) {
             case 'yearly':
               newStartDate.setFullYear(newStartDate.getFullYear() + 1);
               newEndDate.setFullYear(newEndDate.getFullYear() + 1);
-              break;
-            case 'custom':
-              // Handle custom recurrence pattern if needed
               break;
             default:
               break;

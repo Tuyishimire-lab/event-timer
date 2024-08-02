@@ -1,4 +1,3 @@
-// EventForm.js
 import React, { useEffect, useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import { FaPlus } from 'react-icons/fa';
