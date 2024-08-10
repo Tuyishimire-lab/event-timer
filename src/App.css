@@ -45,21 +45,21 @@
 
 /* custom styling for the calendar container */
 
-.fc {
+/* .fc {
   font-family: 'Roboto', sans-serif;
   background-color: #f9f9f9;
   border-radius: 8px;
   padding: 10px;
   min-width: 300px;
   margin:15px auto;
-}
+} */
 /* .fc-view-container{
   height: 600px;
   overflow-y: auto;
 } */
 
 /* Custom styles for calendar header */
-.fc-toolbar {
+/* .fc-toolbar {
   background-color: #007bff;
   color: white;
   border-radius: 8px 8px 0 0;
@@ -69,10 +69,10 @@
   padding: 5px;
   color: rgb(161, 42, 42);
   font-size: 20px;
-}
+} */
 
 /* Custom styles for calendar events */
-.fc-event {
+/* .fc-event {
   color: white;
   border: none;
   border-radius: 4px;
@@ -86,19 +86,119 @@
   padding: 8px 12px;
   font-size: 14px;
   transition: background-color 0.3s;
-}
+} */
 
 /* Hover effect for events */
-.fc-event:hover {
+/* .fc-event:hover {
   background-color: #218838;
-}
+} */
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .fc-toolbar {
     flex-direction: column;
   }
+} */
+
+.calendar-container {
+  max-width: 100%;
+  margin: 0 auto;
+  margin-top: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(2, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #ffffff;
 }
+
+/* @media (max-width: 768px) {
+  .fc-toolbar {
+    flex-wrap: wrap;
+  }
+
+  .fc-toolbar .fc-toolbar-chunk {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+
+  .fc-toolbar .fc-toolbar-chunk:first-child,
+  .fc-toolbar .fc-toolbar-chunk:last-child {
+    order: 1;
+  }
+
+  .fc-toolbar .fc-toolbar-chunk:nth-child(2) {
+    order: 0;
+  }
+} */
+.fc-button {
+  background-color: #007bff;
+  color: rgb(124, 11, 11);
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.fc .fc-button {
+  background-color: #007bff;
+  color: rgb(41, 25, 25);
+  font-weight: bold;
+}
+
+.fc .fc-button:hover {
+  background-color: #0056b3;
+}
+
+/* .fc .fc-button:disabled {
+  background-color: #cccccc;
+  color: #666666;
+} */
+
+.fc-toolbar-title {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.fc .fc-daygrid-event {
+  border: none;
+  border-radius: 4px;
+}
+
+.fc .fc-daygrid-event:hover {
+  opacity: 0.8;
+}
+
+.fc .fc-daygrid-event .fc-event-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fc .fc-button-group .fc-button {
+  margin-right: 5px;
+}
+
+.fc .fc-button-group .fc-button:last-child {
+  margin-right: 5px;
+}
+
+.fc-prev-button{
+  background-color: #fae20b !important;
+  border-color: #cfee1d !important;
+} 
+.fc-next-button {
+  background-color: #28a745 !important;
+  border-color: #28a745 !important;
+}
+
+.fc-prev-button:hover, .fc-next-button:hover {
+  background-color: #4578e4 !important;
+  border-color: #1e7e34 !important;
+}
+
+
+
+/* Pomodor css */
 
 #pomodoro {
   max-width: 900px;
